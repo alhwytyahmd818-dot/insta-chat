@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Instagram AI Chat</title>
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #6e6e6e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Container */
+.chat-container {
+  width: 360px;
+  height: 640px;
+  background: rgb(42, 42, 42);
+  border: 1px solid #2a2a2a;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.chat-header {
+  padding: 12px;
+  border-bottom: 1px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-image: url("avatar.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+
+.username {
+  font-weight: bold;
+}
+
+/* Messages */
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #000000;
+}
+
+/* Message bubbles */
+.message {
+  max-width: 75%;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.user {
+  background: #e100ff;
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 5px;
+}
+
+.ai {
+  background: #747474;
+  color: rgb(255, 255, 255);
+  margin-right: auto;
+  border-bottom-left-radius: 5px;
+}
+
+/* Input */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #111111;
+  padding: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.chat-input button {
+  background: none;
+  border: none;
+  color: #3797f0;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="avatar"></div>
+    <div class="username">tro_f9</div>
+  </div>
+
+  <div class="chat-messages" id="messages"></div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="اكتب رسالة..." />
+    <button onclick="sendMessage()">إرسال</button>
+  </div>
+</div>
+
+<script>
+const messages = document.getElementById("messages");
+const input = document.getElementById("userInput");
+
+const aiReplies = [
+  "احح",
+  "اووووه على زبي",
+  "من القحبه ذا",
+  "اسمع حن بني حجر نشيل اوزان ماتشيلها ووادي حبكان لنا",
+  "شلت 55 كيلو صدر",
+  "ولد والله حقها شاي راد اح",
+  "العنود احح",
+  "مقدر اطلع اليوم",
+  "الامبالا"
+];
+
+function sendMessage() {
+  if (input.value.trim() === "") return;
+
+  addMessage(input.value, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    const reply = aiReplies[Math.floor(Math.random() * aiReplies.length)];
+    addMessage(reply, "ai");
+  }, 1000);
+}
+
+function addMessage(text, type) {
+  const msg = document.createElement("div");
+  msg.className = "message " + type;
+  msg.innerText = text;
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// إرسال بالإنتر
+input.addEventListener("keypress", function(e) {
+  if (e.key === "Enter") sendMessage();
+});
+</script>
+
+</body>
+</html>
